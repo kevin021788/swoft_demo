@@ -17,9 +17,8 @@ class NewsController
      */
     public function getList()
     {
-        $b = Query::table(News::class)->orderBy("id","desc")->limit(3)->get()->getResult();
-        return $b;
-        return ["id"=>1,"title"=>"title11111"];
+        $result = Query::table(News::class)->orderBy("id","desc")->limit(3)->get()->getResult();
+        return $result;
     }
 
 }

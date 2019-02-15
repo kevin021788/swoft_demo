@@ -9,8 +9,10 @@ services:
          - "80:80"
          - "23:22"
          - "6379:6379"
+         - "3306:3306"
          - "27017:27017"
        restart: always
+       privileged: true
        volumes:
          - /home/docker/etc/nginx:/etc/nginx
          - /home/docker/data/mysql:/data/mysql
