@@ -1,0 +1,46 @@
+version: '3'
+
+services:
+
+    kevin:
+       image: registry.cn-hangzhou.aliyuncs.com/liufee/feehi
+       container_name: kevins
+       ports:
+         - "80:80"
+         - "23:22"
+         - "6379:6379"
+         - "27017:27017"
+       restart: always
+       volumes:
+         - /home/docker/etc/nginx:/etc/nginx
+         - /home/docker/data/mysql:/data/mysql
+         - /home/docker/data/mongodb:/data/mongodb
+         - /home/docker/data/log:/var/log
+         - /home/docker/www:/usr/local/nginx/html
+
+    swoft:
+       image: swoft/swoft:latest
+       container_name: swoft
+#       build: ./
+       ports:
+         - "81:80"
+       links:
+         - kevin:kevins
+       volumes:
+         - ./:/var/www/swoft
+       restart: always
+       stdin_open: true 
+       tty: true
+       privileged: true
+       entrypoint: ["php", "/var/www/swoft/bin/swoft", "start"]
+
+    samba:
+       image: dperson/samba
+       container_name: smba
+       volumes:
+        - /home/:/mount
+       ports:
+        - "139:139"
+        - "445:445"
+       command: '-u "root;kevin" -s "kevinhome;/mount/;yes;no;yes;all;all;all" -w "WORKGROUP" -g "force user=root" -g "guest account=root"'
+       restart: always
