@@ -31,7 +31,7 @@ services:
        volumes:
          - ./:/var/www/swoft
        restart: always
-       stdin_open: true 
+       stdin_open: true
        tty: true
        privileged: true
        entrypoint: ["php", "/var/www/swoft/bin/swoft", "start"]
