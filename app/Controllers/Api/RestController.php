@@ -10,6 +10,8 @@
 
 namespace App\Controllers\Api;
 
+use App\Models\Entity\User;
+use Swoft\Db\Query;
 use Swoft\Http\Message\Server\Request;
 use Swoft\Http\Server\Bean\Annotation\Controller;
 use Swoft\Http\Server\Bean\Annotation\RequestMapping;
@@ -30,7 +32,8 @@ class RestController
      */
     public function list()
     {
-        return ['list'];
+        $model = Query::table(User::class)->get()->getResult();
+        return ['list',$model];
     }
 
     /**
@@ -46,10 +49,14 @@ class RestController
     public function create(Request $request)
     {
         $name = $request->input('name');
+        $model = new User();
+        $model->setName($name);
+        $id = $model->save()->getResult();
+
 
         $bodyParams = $request->getBodyParams();
         $bodyParams = empty($bodyParams) ? ['create', $name] : $bodyParams;
-
+        $bodyParams['id'] = $id;
         return $bodyParams;
     }
 
@@ -65,7 +72,8 @@ class RestController
      */
     public function getUser(int $uid)
     {
-        return ['getUser', $uid];
+        $model = User::findById($uid)->getResult();
+        return ['getUser', $uid,$model];
     }
 
     /**

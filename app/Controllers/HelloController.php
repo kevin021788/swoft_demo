@@ -11,6 +11,7 @@ namespace App\Controllers;
 use Swoft\App;
 use Swoft\Http\Server\Bean\Annotation\Controller;
 use Swoft\Http\Server\Bean\Annotation\RequestMapping;
+use Swoft\Task\Task;
 
 /**
  * Class IndexController
@@ -23,6 +24,13 @@ class HelloController
      */
     function index()
     {
+        $number = range(1, 50);
+        foreach ($number as $key => $value) {
+            $re[] = Task::deliver('sync', 'deliverCo', [$value, 2], Task::TYPE_CO);
+        }
+        return $re;
+
+        //"deliverCo-p-p2"
         return 'hello word!';
     }
 

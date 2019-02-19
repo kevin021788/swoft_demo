@@ -91,6 +91,7 @@ class TaskController
     {
         $result  = Task::deliver('sync', 'http', [], Task::TYPE_CO);
 
+        $result = Task::deliver('kevin', 'http', [], Task::TYPE_CO);
         return [$result];
     }
 

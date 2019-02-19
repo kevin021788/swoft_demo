@@ -99,9 +99,9 @@ class SyncTask
      * @return array
      */
     public function mysql(){
-        $result = User::findById(4212)->getResult();
+        $result = User::findById(1)->getResult();
 
-        $query = User::findById(4212);
+        $query = User::findById(2);
 
         /* @var User $user */
         $user = $query->getResult(User::class);
@@ -116,7 +116,7 @@ class SyncTask
     public function http()
     {
         $client = new Client();
-        $response = $client->get('http://www.swoft.org')->getResponse()->getBody()->getContents();
+        $response = $client->get('http://www.zuochao.net')->getResponse()->getBody()->getContents();
         $response2 = $client->get('http://127.0.0.1/redis/testCache')->getResponse()->getBody()->getContents();
 
         $data['result1'] = $response;
@@ -160,19 +160,19 @@ class SyncTask
         sleep(mt_rand(1, 2));
 
         /* @var User $user*/
-        $user = User::findById(80368)->getResult();
+        $user = User::findById(1)->getResult();
         return $user->toJson();
     }
 
     /**
      * crontab定时任务
-     * 每一秒执行一次
+     * 每30秒执行一次
      *
-     * @Scheduled(cron="* * * * * *")
+     * @Scheduled(cron="*\/30 * * * * *")
      */
     public function cronTask()
     {
-        echo time() . "每一秒执行一次  \n";
+        echo time() . "每30秒执行一次  \n";
         return 'cron';
     }
 
