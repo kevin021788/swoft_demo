@@ -46,3 +46,31 @@ services:
         - "445:445"
        command: '-u "root;kevin" -s "kevinhome;/mount/;yes;no;yes;all;all;all" -w "WORKGROUP" -g "force user=root" -g "guest account=root"'
        restart: always
+
+    nginxImageServer:
+       # build: .
+       image: kevin0217/nginx-image-server:latest
+       # 该容器是否需要开机启动+自动重启。若需要，则取消注释。
+       restart: always
+       container_name: nginxImageServer
+       environment:
+           # nginx服务端口
+           - WEB_PORT=808
+           - SERVER_NAME=img.com
+       ports:
+           - "808:80"
+           - "8090:8090"
+       volumes:
+           # 将本地目录映射到docker容器内的fastdfs数据存储目录，将fastdfs文件存储到主机上，以免每次重建docker容器，之前存储的文件就丢失了。
+           - /tmp/example.jpg:/var/www/nginx/images/example.jpg
+           - /home/docker/www/wwwroot/docker-data/fdfs/storage:/var/www/nginx/images
+           - /home/docker/www/wwwroot/zc.com/Uploads:/var/www/nginx/images
+#           - ./nginximgserver/files/nginx.conf:/etc/nginx/nginx.conf
+#           - ./nginximgserver/files/mime.types:/etc/nginx/mime.types
+#           - ./nginximgserver/files/validator.pm:/opt/nginx/perl/lib/validator.pm
+
+           #- ./conf.d:/etc/nginx/conf.d/:rw
+       # 使docker具有root权限以读写主机上的目录
+       privileged: true
+       # 网络模式为host，即直接使用主机的网络接口
+       command: '/opt/nginx/sbin/nginx'

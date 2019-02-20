@@ -49,8 +49,14 @@ class RestController
     public function create(Request $request)
     {
         $name = $request->input('name');
+        $age = $request->input('age');
+        $sex = $request->input('sex');
+        $description = $request->input('description');
         $model = new User();
         $model->setName($name);
+        $model->setAge($age);
+        $model->setSex($sex);
+        $model->setDesc($description);
         $id = $model->save()->getResult();
 
 
