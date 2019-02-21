@@ -191,6 +191,7 @@ class DemoController
             'doc1'       => 'https://swoft-cloud.github.io/swoft-doc/',
             'method'     => __METHOD__,
             'layoutFile' => $layout,
+            'aaa' => $_SERVER,
         ];
 
         return $data;

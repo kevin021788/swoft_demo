@@ -21,6 +21,7 @@ layout file: <?= $layoutFile ?>
 
 view method: <?= $method ?>
 
+aaa:<?php var_dump($aaa) ?>
 
 <strong>使用布局文件， 方式有两种：</strong>
 
