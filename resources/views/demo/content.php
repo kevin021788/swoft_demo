@@ -23,6 +23,11 @@ view method: <?= $method ?>
 
 aaa:<?php var_dump($aaa) ?>
 
+alias:<?= $alias ?>
+
+config:<?php var_dump($config) ?>
+
+
 <strong>使用布局文件， 方式有两种：</strong>
 
 1. 在配置中 配置默认的布局文件，那这里即使不设置 layout， 也会使用默认的

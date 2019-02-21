@@ -183,6 +183,10 @@ class DemoController
      */
     public function layout()
     {
+        $alias = \Swoft::getAlias('@root/public');
+
+        $config = \bean('config')->get('user');
+
         $layout = 'layouts/default.php';
         $data   = [
             'name'       => 'Swoft',
@@ -192,6 +196,8 @@ class DemoController
             'method'     => __METHOD__,
             'layoutFile' => $layout,
             'aaa' => $_SERVER,
+            'alias' => $alias,
+            'config' => $config,
         ];
 
         return $data;
