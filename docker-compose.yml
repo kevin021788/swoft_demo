@@ -48,6 +48,8 @@ services:
        restart: always
 
     nginxImageServer:
+    #原图路径 http://192.168.5.181:808/images/example.jpg
+    #裁剪后的路径 http://192.168.5.181:808/small_light(dh=200,da=l,ds=s)/images/example.jpg
        # build: .
        image: kevin0217/nginx-image-server:latest
        # 该容器是否需要开机启动+自动重启。若需要，则取消注释。
@@ -64,7 +66,7 @@ services:
            # 将本地目录映射到docker容器内的fastdfs数据存储目录，将fastdfs文件存储到主机上，以免每次重建docker容器，之前存储的文件就丢失了。
            - /tmp/example.jpg:/var/www/nginx/images/example.jpg
            - /home/docker/www/wwwroot/docker-data/fdfs/storage:/var/www/nginx/images
-           - /home/docker/www/wwwroot/zc.com/Uploads:/var/www/nginx/images
+           - /home/docker/www/wwwroot/zc.com/Uploads:/var/www/nginx/images/zc
 #           - ./nginximgserver/files/nginx.conf:/etc/nginx/nginx.conf
 #           - ./nginximgserver/files/mime.types:/etc/nginx/mime.types
 #           - ./nginximgserver/files/validator.pm:/opt/nginx/perl/lib/validator.pm
