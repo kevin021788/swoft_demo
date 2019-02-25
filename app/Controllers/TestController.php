@@ -32,7 +32,7 @@ class TestController
      */
     public function test()
     {
-        $result  = $this->testService->getStr('-这儿是客户端');
+        $result  = $this->testService->getStr('-这儿是客户端！！！！！！！！！！！我是客户端');
         return [
             'result'  => $result,
         ];
