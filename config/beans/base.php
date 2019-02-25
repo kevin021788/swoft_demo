@@ -12,8 +12,20 @@ return [
         'middlewares' => [
             \Swoft\View\Middleware\ViewMiddleware::class,
              \Swoft\Devtool\Middleware\DevToolMiddleware::class,
-            // \Swoft\Session\Middleware\SessionMiddleware::class,
+             \Swoft\Session\Middleware\SessionMiddleware::class,
         ]
+    ],
+    // 注意Bean大小写
+    'sessionManager' => [
+        'class' => \Swoft\Session\SessionManager::class,
+        'config' => [
+            'driver' => 'redis',
+            'name' => 'SWOFT_SESSION_ID',
+            'lifetime' => 1800,
+            'expire_on_close' => false,
+            'encrypt' => false,
+            'storage' => '@runtime/sessions',
+        ],
     ],
     'httpRouter'       => [
         'ignoreLastSlash'  => false,

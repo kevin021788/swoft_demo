@@ -32,9 +32,12 @@ class TestController
      */
     public function test()
     {
+        session()->put('aa', '测试一下');
+        $session = session()->get('aa');
         $result  = $this->testService->getStr('-这儿是客户端！！！！！！！！！！！我是客户端');
         return [
             'result'  => $result,
+            'session'  => $session,
         ];
     }
 
