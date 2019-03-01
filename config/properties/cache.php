@@ -12,7 +12,7 @@ return [
         'name'        => 'redis',
         'uri'         => [
             'tcp://172.18.0.2:6379?auth=123456',
-//            'tcp://192.168.5.2:6379?auth=ab34ef',
+            'tcp://172.18.0.3:6379?auth=123456',
         ],
         'minActive'   => 8,
         'maxActive'   => 8,

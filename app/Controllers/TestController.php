@@ -41,4 +41,31 @@ class TestController
         ];
     }
 
+    /**
+     * @RequestMapping(route="find")
+     * @return array
+     */
+    public function find()
+    {
+        $b = array();
+        $result = $this->testService->findProd(1, $b);
+        return [
+            'result' => $result,
+            'session' => session()->all(),
+        ];
+    }
+
+    /**
+     * @RequestMapping(route="del")
+     * @return array
+     */
+    public function del()
+    {
+        $result = $this->testService->delProd(2);
+        return [
+            'result' => $result,
+            'session' => session()->all(),
+        ];
+    }
+
 }
