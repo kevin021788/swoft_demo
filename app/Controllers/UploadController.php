@@ -22,7 +22,7 @@ use Swoft\Http\Message\Server\Request;
 class UploadController
 {
     /**
-     * @RequestMapping(route="img")
+     * @RequestMapping(route="img",method={RequestMethod::POST})
      * @param Request $request
      * @return array
      */
@@ -30,6 +30,7 @@ class UploadController
     {
         $files = $request->getUploadedFiles();
         $file = $files['img'];
+        if(empty($file)) return ['nothing upload'];
 
         $dir = alias('@runtime/uploadfiles') . '/' . date('Ymd');
         if (!is_dir($dir)) {
