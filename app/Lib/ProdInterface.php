@@ -9,6 +9,15 @@ namespace App\Lib;
 
 use Swoft\Core\ResultInterface;
 
+/**
+ * Interface ProdInterface
+ * @package App\Lib
+ *
+ * @method ResultInterface deferAddProd(array $info)
+ * @method ResultInterface deferFindProd(int $id,array $cond)
+ * @method ResultInterface deferDelProd(int $id)
+ * @method ResultInterface deferModifyProd(int $id,array $info)
+ */
 interface ProdInterface
 {
     public function addProd(array $info);

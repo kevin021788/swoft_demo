@@ -7,9 +7,14 @@
  */
 namespace App\Middlewares;
 
+use Firebase\JWT\BeforeValidException;
+use Firebase\JWT\ExpiredException;
+use Firebase\JWT\JWT;
+use Firebase\JWT\SignatureInvalidException;
 use Psr\Http\Server\RequestHandlerInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Swoft\App;
 use Swoft\Bean\Annotation\Bean;
 use Swoft\Http\Message\Middleware\MiddlewareInterface;
 
@@ -33,11 +38,62 @@ class SomeMiddleware implements MiddlewareInterface
      */
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
-        $auth = false;
+        $auth = App::getBean('config')->get('auth.jwt');
+        $key = $auth['secret'];
+
+        try{
+
+            $authorization = $request->getHeader('Authorization');
+
+            if(empty($authorization)) throw new \Exception('无效访问');
+
+            $msg = '';
+
+            $jwt = $authorization[0];
+
+            list($header64, $payload64, $sign64) = explode('.', $jwt);
+
+            $alg = JWT::jsonDecode(JWT::urlsafeB64Decode($header64));
+
+            $res = JWT::decode($jwt, $key, [$alg->alg]);
+
+
+        }catch (ExpiredException $exception)
+        {
+            $auth = false;
+            $msg = $exception->getMessage();
+        }catch (SignatureInvalidException $exception)
+        {
+            $auth = false;
+            $msg = $exception->getMessage();
+        }catch (\UnexpectedValueException $exception)
+        {
+            $auth = false;
+            $msg = $exception->getMessage();
+        }catch (\InvalidArgumentException $exception)
+        {
+            $auth = false;
+            $msg = $exception->getMessage();
+        }catch (\Exception $exception)
+        {
+            $auth = false;
+            $msg = $exception->getMessage();
+        }
+
+
+        if (isset($res) && $res->iat) {
+            $auth = true;
+        }
+
         // 如果验证不通过
         if (!$auth) {
             // response() 函数可以快速从 RequestContext 获得 Response 对象
-            return response()->withStatus(401);
+            $data = [
+                'code' => 0,
+                'msg' => $msg,
+            ];
+            return response()->withContent(json_encode($data));
+//            return response()->withStatus(401);
         }
         // 委托给下一个中间件处理
         $response = $handler->handle($request);

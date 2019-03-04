@@ -47,7 +47,7 @@ class DemoControllerTest extends AbstractTestCase
     public function actionI18n()
     {
        $response = $this->request('GET', '/demo2/i18n', [], parent::ACCEPT_VIEW);
-       $response->assertSuccessful()->assertSee('title');
+       $response->assertSuccessful()->assertSee('中文标题');
     }
 
 }

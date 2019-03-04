@@ -35,4 +35,10 @@ return [
         // (可选)前台运行服务器时，是否打印 HTTP 请求到 Console
         'logHttpRequestToConsole' => true,
     ],
+    'auth' => [
+        'jwt' => [
+            'algorithm' => 'HS256',
+            'secret' => '43UF72vSkj-sA4aHHiYN5eoZ9Nb4w5Vb35PsLF9x_NY'
+        ],
+    ],
 ];

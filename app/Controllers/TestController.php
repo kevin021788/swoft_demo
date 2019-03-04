@@ -8,6 +8,7 @@
 
 namespace App\Controllers;
 
+use App\Lib\ProdInterface;
 use Swoft\Http\Message\Server\Request;
 use Swoft\Http\Server\Bean\Annotation\Controller;
 use Swoft\Http\Server\Bean\Annotation\RequestMapping;
@@ -26,6 +27,13 @@ class TestController
      * @var TestInterface
      */
     private $testService;
+
+    /**
+     *
+     * @Reference(name="prod")
+     * @var ProdInterface
+     */
+    private $prodService;
 
     /**
      * @RequestMapping(route="test")
@@ -55,6 +63,19 @@ class TestController
         ];
     }
 
+    /**
+     * @RequestMapping(route="view")
+     * @return array
+     */
+    public function modify()
+    {
+        $b = array();
+        $result = $this->prodService->findProd(1, $b);
+        return [
+            'result' => $result,
+            'session' => session()->all(),
+        ];
+    }
     /**
      * @RequestMapping(route="del")
      * @return array
