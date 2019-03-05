@@ -57,10 +57,10 @@ class TestController
     {
         $b = array();
         $result = $this->testService->findProd(1, $b);
-        return [
+        return returnData([
             'result' => $result,
             'session' => session()->all(),
-        ];
+        ],200,'成功');
     }
 
     /**
@@ -71,10 +71,10 @@ class TestController
     {
         $b = array();
         $result = $this->prodService->findProd(1, $b);
-        return [
+        return returnData([
             'result' => $result,
             'session' => session()->all(),
-        ];
+        ],200,'成功');
     }
     /**
      * @RequestMapping(route="del")
