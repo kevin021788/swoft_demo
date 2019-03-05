@@ -88,11 +88,8 @@ class SomeMiddleware implements MiddlewareInterface
         // 如果验证不通过
         if (!$auth) {
             // response() 函数可以快速从 RequestContext 获得 Response 对象
-            $data = [
-                'code' => 0,
-                'msg' => $msg,
-            ];
-            return response()->withContent(json_encode($data));
+//
+            return response()->withContent(json_encode(returnData('',0,$msg)));
 //            return response()->withStatus(401);
         }
         // 委托给下一个中间件处理
