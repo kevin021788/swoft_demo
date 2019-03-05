@@ -34,23 +34,23 @@ services:
        stdin_open: true
        tty: true
        privileged: true
-       entrypoint: ["php", "/var/www/swoft/bin/swoft", "start"]
-
-    swoft-ws:
-       image: swoft/swoft:latest
-       container_name: swoft-ws
-#       build: ./
-       ports:
-         - "9099:80"
-       links:
-         - kevin:kevins
-       volumes:
-         - ./:/var/www/swoft
-       restart: always
-       stdin_open: true
-       tty: true
-       privileged: true
        entrypoint: ["php", "/var/www/swoft/bin/swoft", "ws:start"]
+
+#    swoft-ws:
+#       image: swoft/swoft:latest
+#       container_name: swoft-ws
+##       build: ./
+#       ports:
+#         - "9099:80"
+#       links:
+#         - kevin:kevins
+#       volumes:
+#         - ./:/var/www/swoft
+#       restart: always
+#       stdin_open: true
+#       tty: true
+#       privileged: true
+#       entrypoint: ["php", "/var/www/swoft/bin/swoft", "ws:start"]
 
     samba:
        image: dperson/samba
