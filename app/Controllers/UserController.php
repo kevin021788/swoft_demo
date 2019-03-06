@@ -8,20 +8,14 @@
 namespace App\Controllers;
 
 use App\Lib\UserInterface;
-use Firebase\JWT\JWT;
-use Swoft\App;
+use App\Utils\JwtToken;
 use Swoft\Http\Message\Server\Request;
 use Swoft\Http\Server\Bean\Annotation\Controller;
 use Swoft\Http\Server\Bean\Annotation\RequestMapping;
 use Swoft\Http\Server\Bean\Annotation\RequestMethod;
 use Swoft\Rpc\Client\Bean\Annotation\Reference;
-use Swoft\Log\Log;
-use Swoft\View\Bean\Annotation\View;
-use Swoft\Contract\Arrayable;
-use Swoft\Http\Server\Exception\BadRequestException;
-use Swoft\Http\Message\Server\Response;
 use Swoft\Http\Message\Bean\Annotation\Middleware;
-use App\Middlewares\SomeMiddleware;
+use App\Middlewares\JwtMiddleware;
 
 /**
  * @Controller()
@@ -51,8 +45,8 @@ class UserController
             'username' => $name,
         ];
         $rs = $this->userService->register($data);
-        if(!empty($rs)) return ['success',$data, $rs];
-        return ['fail',$data];
+        if(!empty($rs)) return returnData('', 200, '注册失败');
+        return returnData($data,200,'注册成功');
     }
 
 
@@ -70,45 +64,28 @@ class UserController
         $rs = $this->userService->login($account, $password);
         if(empty($rs)) return ['false',$rs];
 
-        $jwt = App::getBean('config')->get('auth.jwt');
-        $key = $jwt['secret'];
-        $algorithm = $jwt['algorithm'];
-
-        /*
-    iss: token的发行者
-    sub: token的题目
-    aud: token的客户
-    exp: 经常使用的，以数字时间定义失效期，也就是当前时间以后的某个时间本token失效。
-    nbf: 定义在此时间之前，JWT不会接受处理。
-    iat: JWT发布时间，能用于决定JWT年龄
-    jti: JWT唯一标识. 能用于防止 JWT重复使用，一次只用一个token
-*/
-        $payload = array(
-            "iss" => "http://example.org",
-            "aud" => "http://example.com",
-            "iat" => time(),
-            'exp' => time() + 60,
-            "nbf" => time(),
+        $res = array(
             'account' => $rs['account'],
             'username' => $rs['username'],
         );
 
-
-        $token = JWT::encode($payload, $key);
-        $decoded = JWT::decode($token, $key, array($algorithm));
-
+        try {
+            $jwtToken = new JwtToken();
+            $token = $jwtToken->encode($res);
+        } catch (\Exception $exception) {
+            return returnData([], 200, $exception->getMessage());
+        }
 
         $data = [
             'token' => $token,
         ];
-
-        return ['success', $data];
+        return returnData($data, 200, '成功');
 
     }
 
     /**
      * @RequestMapping(route="get/{id}",method={RequestMethod::GET})
-     * @Middleware(SomeMiddleware::class)
+     * @Middleware(JwtMiddleware::class)
      * @param Request $request
      * @param int $id
      * @return array

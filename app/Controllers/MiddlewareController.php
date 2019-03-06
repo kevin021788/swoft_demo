@@ -19,7 +19,7 @@ use App\Middlewares\ActionTestMiddleware;
 use App\Middlewares\SubMiddleware;
 use App\Middlewares\ControllerSubMiddleware;
 use App\Middlewares\ControllerTestMiddleware;
-use App\Middlewares\SomeMiddleware;
+use App\Middlewares\JwtMiddleware;
 use App\Middlewares\CorsMiddleware;
 
 

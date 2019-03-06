@@ -17,7 +17,7 @@ use Swoft\Rpc\Client\Bean\Annotation\Reference;
 use Swoft\Bean\Annotation\Number;
 use Swoft\Bean\Annotation\ValidatorFrom;
 use App\Lib\ProdInterface;
-use App\Middlewares\SomeMiddleware;
+use App\Middlewares\JwtMiddleware;
 
 /**
 /**
@@ -44,7 +44,7 @@ class ProdController
     }
 
     /**
-     * @Middleware(SomeMiddleware::class)
+     * @Middleware(JwtMiddleware::class)
      * @RequestMapping(route="del")
      * @return array
      */
