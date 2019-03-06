@@ -23,6 +23,9 @@ use Swoole\WebSocket\Server;
 
 /**
  * 用WebSocket判断登录状态
+ * 连接地址用
+ * ws://192.168.5.181:81/auth?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9leGFtcGxlLm9yZyIsImF1ZCI6Imh0dHA6XC9cL2V4YW1wbGUuY29tIiwiaWF0IjoxNTUxNzc0Mzg1LCJleHAiOjE1NTE3NzQ0NDUsIm5iZiI6MTU1MTc3NDM4NSwiYWNjb3VudCI6IjEzNzk4MTgwNDAyIiwidXNlcm5hbWUiOiJrZXZpbiJ9.A-l0OTisrYdwsZEF4UPbBRlHnNLcMsO11FARwOin8cQ
+ *
  * Class AuthController - This is an controller for handle websocket
  * @package App\WebSocket
  * @WebSocket("auth")
@@ -46,8 +49,7 @@ class AuthController implements HandlerInterface
     public function checkHandshake(Request $request, Response $response): array
     {
         // some validate logic ...
-        $token = $request->getQueryParams()['token'];
-
+        var_dump($request);
         return [self::HANDSHAKE_OK, $response];
     }
 
