@@ -26,7 +26,8 @@ class NewsController
         $pageSize = empty($pageSize) ? 5 : $pageSize;
         $offset = ($page - 1) * $pageSize;
         $result = Query::table(News::class)->orderBy("id","desc")->limit($pageSize,$offset)->get()->getResult();
-        return $result;
+        $a = get_last_sql();
+        return [$result,$a];
     }
 
     /**
