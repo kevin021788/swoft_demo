@@ -75,6 +75,7 @@ class ChatController implements HandlerInterface
             {
                 // 根据fd获取uid
                 $connection = $server->connection_info($v);
+                var_dump($connection);
                 if (isset($connection['uid']) && in_array($connection['uid'], [$data['receiveUid'], $data['sendUid']])) {
                     if (isset($data['content'])) {
                         $response = [

@@ -17,24 +17,29 @@ use Swoft\Http\Server\Bean\Annotation\RequestMethod;
 // use Swoft\Http\Message\Server\Response;
 
 /**
+ * http://192.168.5.181:81/chat/1/3
+ *
  * Class ChatController
  * @Controller(prefix="/chat")
  * @package App\Controllers
  */
 class ChatController{
     /**
-     * @RequestMapping(route="/chat/{uid}", method=RequestMethod::GET)
+     * @RequestMapping(route="/chat/{uid}/{receiveUid}", method=RequestMethod::GET)
      * @param int $uid
-     * @return \Swoft\Http\Message\Server\Response|\think\response\View
+     * @param int $receiveUid
+     * @return \Swoft\Http\Message\Server\Response
      */
-    public function index(int $uid)
+    public function index(int $uid, int $receiveUid)
     {
 
         $users = [
             1 => '程心',
             2 => '云天明',
+            3 => '小高',
+            4 => '美女客服',
         ];
-        $receiveUid = $uid == 1 ? 2 : 1;
+//        $receiveUid = $uid == 1 ? 2 : 1;
         $userName = $users[$uid];
         $data = compact('uid', 'userName', 'receiveUid');
         return view('chat/index', $data);

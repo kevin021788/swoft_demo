@@ -47,20 +47,20 @@
         var data = {
             'sendUid': vm.$data.uid,
             'type': 'bind',
-            'receiveUid': '',
-        }
+            'receiveUid': vm.$data.receiveUid
+        };
         // 将uid推送到服务端，与fd进行绑定
         ws.send(JSON.stringify(data));
-    }
+    };
     ws.onmessage = function(evt) {
-        var data = JSON.parse(evt.data)
+        var data = JSON.parse(evt.data);
         if (data.content) {
             vm.$data.list.push(data)
         }
-    }
+    };
     ws.onclose = function() {
         console.log('连接关闭')
-    }
+    };
 
     var vm = new Vue({
         el: "#app",
@@ -74,22 +74,22 @@
         methods: {
             className(uid) {
                 if (uid === this.uid) {
-                    return 'alert alert-success col-md-2'
+                    return 'alert alert-danger col-md-2'
                 } else {
-                    return 'alert alert-danger col-md-2 offset-md-5'
+                    return 'alert alert-success col-md-2 offset-md-5'
                 }
             },
             pushData() {
-                let data = {
+                var data = {
                     'sendUid': this.uid,
                     'receiveUid': this.receiveUid,
                     'content': this.content,
                     'type': 'chat'
-                }
+                };
                 ws.send(JSON.stringify(data));
                 this.content = ''
             }
-        },
+        }
 
     })
 </script>
