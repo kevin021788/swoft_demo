@@ -7,7 +7,7 @@
  */
 namespace App\Middlewares;
 
-use App\Utils\JwtToken;
+use App\Helper\JwtToken;
 use Psr\Http\Server\RequestHandlerInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;

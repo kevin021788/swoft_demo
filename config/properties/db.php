@@ -11,7 +11,7 @@ return [
     'master' => [
         'name'        => 'master',
         'uri'         => [
-            '172.18.0.2:3306/test?user=root&password=123456&charset=utf8',
+            'kevins:3306/test?user=root&password=123456&charset=utf8',
         ],
         'minActive'   => 8,
         'maxActive'   => 8,
@@ -24,7 +24,7 @@ return [
     'slave' => [
         'name'        => 'slave',
         'uri'         => [
-            '172.18.0.2:3306/test?user=root&password=123456&charset=utf8',
+            'kevins:3306/test?user=root&password=123456&charset=utf8',
         ],
         'minActive'   => 8,
         'maxActive'   => 8,

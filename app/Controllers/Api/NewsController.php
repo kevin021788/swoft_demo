@@ -2,6 +2,8 @@
 namespace App\Controllers\Api;
 
 use App\Models\Entity\News;
+use Swoft\App;
+use Swoft\Db\DbResult;
 use Swoft\Db\Query;
 use Swoft\Http\Message\Server\Request;
 use Swoft\Http\Server\Bean\Annotation\Controller;

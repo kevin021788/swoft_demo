@@ -8,7 +8,7 @@
 namespace App\Controllers;
 
 use App\Lib\UserInterface;
-use App\Utils\JwtToken;
+use App\Helper\JwtToken;
 use Swoft\Http\Message\Server\Request;
 use Swoft\Http\Server\Bean\Annotation\Controller;
 use Swoft\Http\Server\Bean\Annotation\RequestMapping;

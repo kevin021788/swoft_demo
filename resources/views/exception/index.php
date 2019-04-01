@@ -79,17 +79,18 @@
             <?= $name ?>
         </div>
 
-        <?php foreach ($notes as $note): ?>
+<!--        <?php /*foreach ($notes as $note): */?>
             <div class="notes m-b-sm">
-                <?= $note ?>
+                <?/*= $note */?>
             </div>
-        <?php endforeach; ?>
+        <?php /*endforeach; */?>
 
         <div class="links">
-            <?php foreach ($links as $link): ?>
-                <a href="<?= $link['link'] ?>"><?= $link['name'] ?></a>
-            <?php endforeach; ?>
-        </div>
+            <?php /*foreach ($links as $link): */?>
+                <a href="<?/*= $link['link'] */?>"><?/*= $link['name'] */?></a>
+            <?php /*endforeach; */?>
+        </div>-->
+
     </div>
 </div>
 </body>

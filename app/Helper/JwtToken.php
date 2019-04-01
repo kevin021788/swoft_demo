@@ -6,7 +6,7 @@
  * Time: 11:43
  */
 
-namespace App\Utils;
+namespace App\Helper;
 
 
 use Firebase\JWT\JWT;

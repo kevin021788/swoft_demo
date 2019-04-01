@@ -9,15 +9,22 @@
  */
 
 // you can add some custom functions.
-/**
- * @param string $data
- * @param int $code
- * @param string $message
- * @return array
- */
-function returnData($data='', $code=200, $message='')
-{
-    return ['code' => $code, 'msg' => $message, 'data' => $data];
+if (!function_exists('returnData')) {
+    /**
+     * @param string $data
+     * @param int $code
+     * @param string $message
+     * @return array
+     */
+    function returnData($data='', $code=200, $message='')
+    {
+        return ['code' => $code, 'msg' => $message, 'data' => $data];
+    }
 }
 
-
+if (!function_exists('error_exit')) {
+    function error_exit(int $code, string $msg='')
+    {
+        throw new \App\Exception\HttpException($msg, $code);
+    }
+}

@@ -31,7 +31,7 @@ use Swoft\Http\Server\Exception\BadRequestException;
  * @copyright Copyright 2010-2016 swoft software
  * @license   PHP Version 7.x {@link http://www.php.net/license/3_0.txt}
  */
-class SwoftExceptionHandler
+class HttpExceptionHandler
 {
     /**
      * @Handler(Exception::class)
@@ -49,6 +49,7 @@ class SwoftExceptionHandler
         $exception = $throwable->getMessage();
 
         $data = ['msg' => $exception, 'file' => $file, 'line' => $line, 'code' => $code];
+        $data = ['msg' => $exception, 'code' => $code];
         App::error(json_encode($data));
         return $response->json($data);
     }
@@ -67,7 +68,7 @@ class SwoftExceptionHandler
         $code      = $throwable->getCode();
         $exception = $throwable->getMessage();
 
-        return $response->json([$exception, 'runtimeException']);
+        return $response->json(['msg'=>$exception. ' [runtimeException]']);
     }
 
     /**
@@ -82,7 +83,7 @@ class SwoftExceptionHandler
     {
         $exception = $throwable->getMessage();
 
-        return $response->json(['message' => $exception]);
+        return $response->json(['msg' => $exception]);
     }
 
     /**
@@ -97,7 +98,7 @@ class SwoftExceptionHandler
     {
         $exception = $throwable->getMessage();
 
-        return $response->json(['message' => $exception]);
+        return $response->json(['msg' => $exception]);
     }
 
     /**
@@ -112,33 +113,8 @@ class SwoftExceptionHandler
     public function handlerViewException(Request $request, Response $response, \Throwable $throwable)
     {
         $name  = $throwable->getMessage(). $request->getUri()->getPath();
-        $notes = [
-            'New Generation of PHP Framework',
-            'High Performance, Coroutine and Full Stack',
-        ];
-        $links = [
-            [
-                'name' => 'Home',
-                'link' => 'http://www.swoft.org',
-            ],
-            [
-                'name' => 'Documentation',
-                'link' => 'http://doc.swoft.org',
-            ],
-            [
-                'name' => 'Case',
-                'link' => 'http://swoft.org/case',
-            ],
-            [
-                'name' => 'Issue',
-                'link' => 'https://github.com/swoft-cloud/swoft/issues',
-            ],
-            [
-                'name' => 'GitHub',
-                'link' => 'https://github.com/swoft-cloud/swoft',
-            ],
-        ];
-        $data  = compact('name', 'notes', 'links');
+
+        $data  = compact('name');
 
         return view('exception/index', $data);
     }
